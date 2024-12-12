@@ -1,15 +1,15 @@
-import { Button, Container, Flex, HStack, Text, useColorMode, useColorModeValue } from '@chakra-ui/react'
+import { Button, Container,Flex,HStack,Text, useColorMode, useColorModeValue } from '@chakra-ui/react'
 import React from 'react'
-import { CiSquarePlus } from 'react-icons/ci'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
+import { CiSquarePlus } from "react-icons/ci";
 
-function Navbar() {
-    const {colorMode, toggleColorMode} = useColorMode();
+function NavBar() {
+    const {colorMode,toggleColorMode} = useColorMode()
+    const location = useLocation()
 
-  return (
-    <div>
-        <Container maxWidth={"1140px"} px={4}>
-            <Flex
+    return (
+        <Container maxW={"1140px"} px={4}>
+            <Flex 
                 h={16}
                 alignItems={"center"}
                 justifyContent={"space-between"}
@@ -24,22 +24,23 @@ function Navbar() {
                     fontSize='6xl'
                     fontWeight='extrabold'
                 >
-                    <Link to="/">Product Store</Link>
+                    <Link to={"/"}>Product Store 🛒</Link>
                 </Text>
                 <HStack spacing={2} alignItems={"center"}>
                     <Link to={"/create"}>
-                        <Button>
-                            <CiSquarePlus fontSize={20}/>
+                        <Button fontSize={20}>
+                            <CiSquarePlus/>
                         </Button>
                     </Link>
-                    <Button onClick={toggleColorMode}>
-                        {colorMode == "light" ? "🌙" : "☀️"}
-                    </Button>
+                    <Link to={location.pathname === "/" ? "/" : "/create"}>
+                        <Button onClick={toggleColorMode}>
+                            {colorMode === "light" ? "🌙" : "☀️"}
+                        </Button>
+                    </Link>
                 </HStack>
             </Flex>
         </Container>
-    </div>
-  )
+    )
 }
 
-export default Navbar
+export default NavBar
